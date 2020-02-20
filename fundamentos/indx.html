@@ -14,7 +14,9 @@
 <body>
     <div id="app" class="container mt-5">
        <saludo></saludo>
-       
+        <contador></contador>
+        <contador></contador>
+
     </div>
 
     <script>
@@ -32,7 +34,22 @@
                     saludo: 'hola desde vue'
                 }
             }
-        })
+        });
+
+        Vue.component('contador', {
+            template:
+                `
+                <div>
+                    <h3>{{numero}}</h3>
+                    <button @click="numero++">++</button>
+                </div>                
+                `,
+            data() {
+                return {
+                    numero: 0
+                }
+            }
+        });
         new Vue({
             el: '#app'            
         });
