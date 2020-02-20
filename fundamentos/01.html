@@ -10,14 +10,20 @@
         <h1>
            {{titulo}}
         </h1>
-        <input type="text" v-model="nuevaFruta">
+        <input type="text" v-model="nuevaFruta" @keyup.enter="agregarFruta"> <!-- teclado enter-->
         <button @click="agregarFruta">Agregar</button>  <!-- v-on:click se puede reemplzar por  @click -->
         <ul>
             <li v-for="item of items">{{item}}</li>
         </ul>
         <ul>
-            <li v-for="fruta of frutas">{{fruta.nombre}} - {{fruta.cantidad}} <span v-if="fruta.cantidad === 0">SIN STOCK</span></li>            
+            <li v-for="fruta of frutas">
+                <input type="number" v-model.number="fruta.cantidad">
+                {{fruta.nombre}}
+                <button @click="fruta.cantidad++">+</button>
+                <span v-if="fruta.cantidad === 0">SIN STOCK</span>
+            </li>            
         </ul>
+        <h4>total: {{sumarFrutas}}</h4> <!--  sumarFrutas es un metodo que viene de la propiedad computed-->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

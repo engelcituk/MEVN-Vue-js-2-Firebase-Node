@@ -11,12 +11,24 @@ const app = new Vue({
             { nombre: 'platano', cantidad:3, estado: true }
 
         ],
-        nuevaFruta : ''       
+        nuevaFruta : '',
+        total: 0      
     }, methods: {
         agregarFruta() {
             this.frutas.push({
                 nombre: this.nuevaFruta, cantidad: 1, estado: 1
-            })
+            });
+            this.nuevaFruta= '';
+        }
+    },
+    computed:{
+        sumarFrutas () {
+            this.total = 0;
+            for( fruta of this.frutas){
+                this.total = this.total+ fruta.cantidad; 
+            }
+
+            return this.total;
         }
     }
 })
