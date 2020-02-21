@@ -32,10 +32,17 @@
                 template:
                     `
                 <div>
-                    <button class="btn btn-primary" @click="$store.commit('aumentar')">+</button>
-                    <h4>Número {{$store.state.numero}} en el hijo</h4>
+                    <button class="btn btn-primary" @click="aumentar">+</button>
+                    <button class="btn btn-danger" @click="disminuir(2)">-</button>
+
+                    <h4>Número {{numero}} en el hijo</h4>
                 </div>
-            `
+            `,computed: {
+                ...Vuex.mapState(['numero'])
+            },
+            methods : {
+                ...Vuex.mapMutations(['aumentar','disminuir'])
+            }
             });
         
         const store = new Vuex.Store({
@@ -45,6 +52,9 @@
             mutations: {
                 aumentar (state) { // puedo no usar el parametro y usar this al incrementar
                     state.numero++ // this.state.numero++
+                },
+                disminuir(state, n) { // puedo no usar el parametro y usar this al disminuir, tanbien puedeo pasar otro parametro n
+                    state.numero-= n// this.state.numero -=n
                 }
             }
         });
