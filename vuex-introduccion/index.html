@@ -19,10 +19,13 @@
             template:
             `
                 <div>
-                    <h1>Número {{$store.state.numero}} en el padre</h1>
+                    <h1>Número {{numero}} en el padre</h1>
                     <hijo></hijo>
                 </div>
-            `
+            `,
+            computed: {
+                ...Vuex.mapState(['numero'])
+            }
         });
 
         Vue.component('hijo', {
