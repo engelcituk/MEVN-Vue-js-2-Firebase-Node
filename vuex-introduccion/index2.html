@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vuex</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex@3.1.2/dist/vuex.js"></script>
+</head>
+
+<body>
+    <div id="app" class="container mt-5">
+        <titulo></titulo>
+    </div>
+
+    <script>
+        Vue.component('titulo', {
+            template:
+                `
+                <div>
+                    <h1>Número {{numero}} en el padre</h1>
+                    <hijo></hijo>
+                </div>
+            `,
+            computed: {
+                ...Vuex.mapState(['numero'])
+            }
+        });
+
+        Vue.component('hijo', {
+            template:
+                `
+                <div>
+                    <button class="btn btn-primary" @click="aumentar">+</button>
+                    <button class="btn btn-danger" @click="disminuir(2)">-</button>
+                    <button class="btn btn-success" @click="getCursos">Obtener cursos</button>
+
+
+                    <h4>Número {{numero}} en el hijo</h4>
+                    <ul v-for="curso of cursos">
+                        <li>{{curso.nombre}} </li>
+                    </ul>
+                </div>
+            `, computed: {
+                ...Vuex.mapState(['numero','cursos'])
+            },
+            methods: {
+                ...Vuex.mapMutations(['aumentar', 'disminuir']),
+                ...Vuex.mapActions(['getCursos'])
+            }
+        });
+
+        const store = new Vuex.Store({
+            state: {
+                numero: 7,
+                cursos : []
+            },
+            mutations: {
+                aumentar(state) { // puedo no usar el parametro y usar this al incrementar
+                    state.numero++ // this.state.numero++
+                },
+                disminuir(state, n) { // puedo no usar el parametro y usar this al disminuir, tanbien puedeo pasar otro parametro n
+                    state.numero -= n// this.state.numero -=n
+                },
+                llenarCursos(state, cursosData){
+                    state.cursos = cursosData
+                }
+            },
+            actions: {
+                getCursos: async ({ commit }) => {
+                    const data = await fetch('cursos.json');
+                    const cursos = await data.json();
+                    commit('llenarCursos', cursos)
+                }
+            }
+        });
+
+        new Vue({
+            el: '#app',
+            store: store // js sabe que se esta usando la constante store, por lo que se podría dejar solo como store
+        })
+    </script>
+</body>
+
+</html>
