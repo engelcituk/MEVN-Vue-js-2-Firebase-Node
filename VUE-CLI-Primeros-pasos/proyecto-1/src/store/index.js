@@ -11,7 +11,11 @@ export default new Vuex.Store({
       { id: 2, nombre: "Pera", cantidad: 0 }
     ]
   },
-  mutations: {},
+  mutations: {
+    aumentar(state, index){
+      state.frutas[index].cantidad ++ //para sumar
+    }
+  },
   actions: {},
   modules: {}
 });
