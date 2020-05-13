@@ -2,12 +2,13 @@
   <div class="about">
     <h1>This is an about Inicio</h1>
     <ul class="list-group">
-      <li v-for="(tarea, index) of tareas" :key="index" >{{tarea.nombre}}</li>      
+      <li v-for="(tarea, index) of tareas" :key="index" >{{tarea.nombre}} {{tarea.id}}</li>      
     </ul>
   </div>
 </template>
 
-<script>
+<script>  
+
 import {mapActions, mapState} from 'vuex'
 export default {
   name: 'Inicio',

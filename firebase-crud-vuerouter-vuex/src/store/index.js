@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import db from '../firebase'
+import {db} from '../firebase'
 
 Vue.use(Vuex)
 
@@ -9,8 +9,8 @@ export default new Vuex.Store({
     tareas: []
   },
   mutations: {
-    setTareas(state, tareas){
-      state.tareas = tareas;
+    setTareas(state, payload){
+      state.tareas = payload;
     }
   },
   actions: {
@@ -19,13 +19,13 @@ export default new Vuex.Store({
       const tareas = [];
 
       db.collection('tareas').get()
-      .then(snapshot => {
-        snapshot.forEach(doc => {
+      .then(res => {
+        res.forEach(doc => {
           let tarea = doc.data();
           tarea.id = doc.id;
           tareas.push(tarea);
         })
-      })
+      }) 
       commit('setTareas',tareas)
     }
   },

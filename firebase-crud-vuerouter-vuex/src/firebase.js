@@ -1,17 +1,21 @@
 import firebase from 'firebase/app';
-import firestore from 'firebase/firestore'
+import 'firebase/firestore';
   // Your web app's Firebase configuration
-  const  firebaseConfig = {
-    apiKey: "AIzaSyAJ95o87GA7TQye9Awy28fIrLvOxQOq1kI",
-    authDomain: "crud-vue-fdcf1.firebaseapp.com",
-    databaseURL: "https://crud-vue-fdcf1.firebaseio.com",
-    projectId: "crud-vue-fdcf1",
-    storageBucket: "crud-vue-fdcf1.appspot.com",
-    messagingSenderId: "1086130854515",
-    appId: "1:1086130854515:web:dc50dd9d9b2ea5a1b3a806"
+ 
+  const firebaseConfig = {
+    apiKey: "AIzaSyBW8oQFVE5x1KJJX4xBbfN7qfrcdk5-v1A",
+    authDomain: "crud-vue-13645.firebaseapp.com",
+    databaseURL: "https://crud-vue-13645.firebaseio.com",
+    projectId: "crud-vue-13645",
+    storageBucket: "crud-vue-13645.appspot.com",
+    messagingSenderId: "930595877001",
+    appId: "1:930595877001:web:3474ab857907527d9fd658"
   };
-  // Initialize Firebase
-  const firebaseApp = firebase.initializeApp(firebaseConfig)
 
-  export default firebaseApp.firestore()
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  const db= firebase.firestore();
+
+  export {db}
 
