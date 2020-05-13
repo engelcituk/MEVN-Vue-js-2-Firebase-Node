@@ -6,11 +6,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    tareas: []
+    tareas: [],
+    tarea:{nombre:'',id:''}
   },
   mutations: {
     setTareas(state, payload){
       state.tareas = payload;
+    },
+    setTarea(state, payload){
+      state.tarea = payload;
     }
   },
   actions: {
@@ -27,6 +31,16 @@ export default new Vuex.Store({
         })
       }) 
       commit('setTareas',tareas)
+    },
+    getTarea({commit},idTarea){
+      db.collection('tareas').doc(idTarea).get().
+      then( doc => {
+        console.log(doc.id);
+        console.log(doc.data());
+        let tarea = doc.data()
+        tarea.id = doc.id
+        commit('setTarea', tarea)
+      })
     }
   },
   modules: {
