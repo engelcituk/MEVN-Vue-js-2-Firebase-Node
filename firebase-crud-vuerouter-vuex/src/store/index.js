@@ -50,6 +50,14 @@ export default new Vuex.Store({
       then( ()=> {
         router.push('/')
       })
+    },
+    agregarTarea({commit},nombreTarea){
+      db.collection('tareas').add({
+        nombre: nombreTarea
+      }).
+      then( doc => {
+        router.push('/')
+      })
     }
   },
   modules: {
