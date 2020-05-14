@@ -45,6 +45,9 @@ export default new Vuex.Store({
         commit('setError',err.message)
 
       })
+    },
+    detectarUsuario({commit},payload){
+      commit('setUsuario',{email: payload.email, uid: payload.uid })
     }
   },
   modules: {

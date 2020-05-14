@@ -24,7 +24,14 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-
+firebase.auth().onAuthStateChanged( (user)=> {
+  console.log(user);
+  if(user){
+    store.dispatch('detectarUsuario',{email: user.email, uid: user.uid})
+  }else{
+    store.dispatch('detectarUsuario', null)
+  }
+})
 Vue.config.productionTip = false
 
 new Vue({
