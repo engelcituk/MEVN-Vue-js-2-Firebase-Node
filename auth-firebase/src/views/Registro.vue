@@ -1,4 +1,4 @@
-import { mapActions } from 'vuex';
+
 <template>
     <div>
         <h1>Registro de usuarios</h1>
@@ -6,7 +6,7 @@ import { mapActions } from 'vuex';
             <input type="email" placeholder="email" v-model="email">
             <input type="password" placeholder="contraseña" v-model="password1">
             <input type="password" placeholder="confirmar contraseña" v-model="password2">
-            <button type="submit">Crear usuario</button>
+            <button type="submit" :disabled="!desactivar">Crear usuario</button>
         </form>
         <p>{{error}}</p>
     </div>
@@ -28,7 +28,10 @@ export default {
         ...mapActions(['crearUsuario'])
     },
     computed:{
-        ...mapState(['error'])
+        ...mapState(['error']),
+        desactivar(){
+            return this.password1 === this.password2 && this.password1;
+        }
     }
 }
 </script>

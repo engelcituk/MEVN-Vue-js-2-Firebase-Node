@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
 var firebase = require('firebase/app')
+import router from '../router'
+
 
 
 Vue.use(Vuex)
@@ -22,9 +25,8 @@ export default new Vuex.Store({
     crearUsuario({commit},payload){
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .then( res => {
-          console.log(res.user.email);
-          console.log(res.user.uid);
           commit('setUsuario',{email: res.user.email, uid: res.user.uid})
+          router.push({name:'Inicio'})
         })
         .catch(err => {
           console.log(err.message);

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
+      <router-link :to="{name:'Inicio'}">Inicio</router-link>   
       <router-link :to="{name:'Registro'}">Registro</router-link> 
     </div>
     <router-view/>
