@@ -47,7 +47,11 @@ export default new Vuex.Store({
       })
     },
     detectarUsuario({commit},payload){
-      commit('setUsuario',{email: payload.email, uid: payload.uid })
+      if(payload != null){
+        commit('setUsuario',{email: payload.email, uid: payload.uid })
+      }else{
+        commit('setUsuario',null)
+      }
     },
     cerrarSesion({commit}){
       firebase.auth().signOut()

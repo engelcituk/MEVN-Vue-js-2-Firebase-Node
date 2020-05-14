@@ -31,11 +31,15 @@ firebase.auth().onAuthStateChanged( (user)=> {
   }else{
     store.dispatch('detectarUsuario', null)
   }
-})
-Vue.config.productionTip = false
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+  Vue.config.productionTip = false
+
+  new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount('#app')
+
+})
+
+
