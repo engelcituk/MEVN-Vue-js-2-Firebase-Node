@@ -1,7 +1,11 @@
 <template>
     <div>
-        <h1>editar</h1>
         {{tarea.id}} - {{tarea.nombre}} 
+        <h1>editar</h1>
+        <form @submit.prevent="editarTarea(tarea)">
+            <input type="text" v-model="tarea.nombre">
+            <button type="submit">Editar</button>
+        </form>
     </div>
 </template>
 
@@ -19,7 +23,7 @@ export default {
         this.getTarea(this.id)
     },
     methods:{
-        ...mapActions(['getTarea'])
+        ...mapActions(['getTarea','editarTarea'])
     },
     computed:{
         ...mapState(['tarea'])
