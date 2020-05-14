@@ -3,11 +3,24 @@
     <div id="nav">
       <router-link :to="{name:'Inicio'}">Inicio</router-link> |  
       <router-link :to="{name:'Registro'}">Registro</router-link> | 
-      <router-link :to="{name:'Ingreso'}">Ingreso</router-link> 
+      <router-link :to="{name:'Ingreso'}">Ingreso</router-link> |
+      <a @click="cerrarSesion">Cerrar sesión</a>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+import { mapActions } from "vuex";
+
+export default {
+  name: 'App',
+  methods:{
+    ...mapActions(['cerrarSesion'])
+  }
+}
+</script>
+
 
 <style>
 #app {

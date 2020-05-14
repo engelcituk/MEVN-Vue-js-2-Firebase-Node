@@ -48,6 +48,12 @@ export default new Vuex.Store({
     },
     detectarUsuario({commit},payload){
       commit('setUsuario',{email: payload.email, uid: payload.uid })
+    },
+    cerrarSesion({commit}){
+      firebase.auth().signOut()
+      commit('setUsuario',null)
+      router.push({name:'Ingreso'})
+
     }
   },
   modules: {
