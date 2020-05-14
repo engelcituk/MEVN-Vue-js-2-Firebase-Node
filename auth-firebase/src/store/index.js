@@ -4,8 +4,6 @@ import Vuex from 'vuex'
 var firebase = require('firebase/app')
 import router from '../router'
 
-
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -58,6 +56,15 @@ export default new Vuex.Store({
       commit('setUsuario',null)
       router.push({name:'Ingreso'})
 
+    }
+  },
+  getters:{
+    existeUsuario(state){
+      if(state.usuario === null || state.usuario === '' || state.usuario === undefined){
+        return false
+      }else{
+        return true
+      }
     }
   },
   modules: {
