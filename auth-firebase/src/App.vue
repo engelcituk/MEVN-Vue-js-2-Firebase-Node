@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link :to="{name:'Inicio'}">Inicio</router-link>   
-      <router-link :to="{name:'Registro'}">Registro</router-link> 
+      <router-link :to="{name:'Inicio'}">Inicio</router-link> |  
+      <router-link :to="{name:'Registro'}">Registro</router-link> | 
+      <router-link :to="{name:'Ingreso'}">Ingreso</router-link> 
     </div>
     <router-view/>
   </div>
