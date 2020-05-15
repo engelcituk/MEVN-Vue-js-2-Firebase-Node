@@ -4,7 +4,7 @@
         <form @submit.prevent="ingreseUsuario({email, password})">
             <input type="email" placeholder="email" v-model="email">
             <input type="password" placeholder="contraseña" v-model="password">
-            <button type="submit" >Ingresar</button>
+            <button type="submit" class="btn btn-success">Ingresar</button>
         </form>
         <p>{{error}}</p>
     </div>

@@ -1,11 +1,19 @@
 <template>
-  <div id="app">
+  <div id="app" class="container mt-5">
     <div id="nav">
-      <router-link :to="{name:'Inicio'}" v-if="existeUsuario">Inicio</router-link> |  
-      <router-link :to="{name:'Registro'}" v-if="!existeUsuario">Registro</router-link> | 
-      <router-link :to="{name:'Ingreso'}" v-if="!existeUsuario">Ingreso</router-link> |
-      <a @click="cerrarSesion" v-if="existeUsuario">Cerrar sesión</a>
-      {{existeUsuario}}
+      <router-link :to="{name:'Inicio'}" v-if="existeUsuario" class="btn btn-primary mx-2">
+        Inicio
+      </router-link>   
+      <router-link :to="{name:'Registro'}" v-if="!existeUsuario" class="btn btn-primary mx-2">
+        Registro
+      </router-link> 
+      <router-link :to="{name:'Ingreso'}" v-if="!existeUsuario" class="btn btn-primary mx-2">
+        Ingreso
+      </router-link> 
+      <a @click="cerrarSesion" v-if="existeUsuario" class="btn btn-danger mx-2">
+        Cerrar sesión
+      </a>
+     
     </div>
     <router-view/>
   </div>
