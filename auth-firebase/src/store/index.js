@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 var firebase = require('firebase/app')
 import router from '../router'
+import { db } from '../main';
 
 Vue.use(Vuex)
 
@@ -24,7 +25,13 @@ export default new Vuex.Store({
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .then( res => {
           commit('setUsuario',{email: res.user.email, uid: res.user.uid})
-          router.push({name:'Inicio'})
+          db.collection(res.user.email).add({
+            nombre : 'Tarea de ejemplo'
+          })
+          .then( () => {
+            router.push({name:'Inicio'})
+          })
+          
         })
         .catch(err => {
           console.log(err.message);

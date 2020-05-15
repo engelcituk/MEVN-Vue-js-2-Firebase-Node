@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import db from '../main'
+
 var firebase = require('firebase/app')
 
 Vue.use(VueRouter)

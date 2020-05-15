@@ -6,8 +6,8 @@ import store from './store'
 var firebase = require('firebase/app')
 
 require('firebase/auth')
-/* require('firebase/database')
-require('firebase/firestore')
+ //require('firebase/database')
+require('firebase/firestore')/*
 require('firebase/messaging')
 require('firebase/functions') */
 
@@ -23,6 +23,10 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+export {db}
 
 firebase.auth().onAuthStateChanged( (user)=> {
   console.log(user);
