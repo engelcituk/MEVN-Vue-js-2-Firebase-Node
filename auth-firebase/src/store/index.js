@@ -11,6 +11,8 @@ export default new Vuex.Store({
   state: {
     usuario: '',
     error:'',
+    tareas: [],
+    tarea:{nombre:'',id:''}
   },
   mutations: {
     setUsuario(state, payload){
@@ -18,6 +20,16 @@ export default new Vuex.Store({
     },
     setError(state, payload){
       state.error = payload;
+    },
+    setTareas(state, payload){
+      state.tareas = payload;
+    },
+    setTarea(state, payload){
+      state.tarea = payload;
+    },
+    setEliminarTarea(state,payload){
+      const tareasFiltradas = state.tareas.filter(item => item.id !== payload)
+      state.tareas = tareasFiltradas
     }
   },
   actions: {
@@ -31,7 +43,7 @@ export default new Vuex.Store({
           .then( () => {
             router.push({name:'Inicio'})
           })
-          
+
         })
         .catch(err => {
           console.log(err.message);
@@ -63,6 +75,56 @@ export default new Vuex.Store({
       commit('setUsuario',null)
       router.push({name:'Ingreso'})
 
+    },
+    getTareas({commit}){
+      const usuario = firebase.auth().currentUser
+      const tareas = [];
+      db.collection(usuario.email).get()
+      .then(res => {
+        res.forEach(doc => {
+          let tarea = doc.data();
+          tarea.id = doc.id;
+          tareas.push(tarea);
+        })
+      }) 
+      commit('setTareas',tareas)
+    },
+    getTarea({commit},idTarea){
+      const usuario = firebase.auth().currentUser
+      db.collection(usuario.email).doc(idTarea).get().
+      then( doc => {
+        console.log(doc.id);
+        console.log(doc.data());
+        let tarea = doc.data()
+        tarea.id = doc.id
+        commit('setTarea', tarea)
+      })
+    },
+    editarTarea({commit}, tarea){
+      const usuario = firebase.auth().currentUser
+      db.collection(usuario.email).doc(tarea.id).update({
+        nombre: tarea.nombre
+      }).
+      then( ()=> {
+        router.push('/')
+      })
+    },
+    agregarTarea({commit},nombreTarea){
+      const usuario = firebase.auth().currentUser
+      db.collection(usuario.email).add({
+        nombre: nombreTarea
+      }).
+      then( doc => {
+        router.push('/')
+      })
+    },
+    eliminarTarea({commit, dispatch},idTarea){
+      const usuario = firebase.auth().currentUser
+      db.collection(usuario.email).doc(idTarea).delete()
+       .then( ()=> {
+          //dispatch('getTareas')
+          commit('setEliminarTarea',idTarea)
+       })
     }
   },
   getters:{

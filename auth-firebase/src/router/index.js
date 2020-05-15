@@ -22,6 +22,19 @@ Vue.use(VueRouter)
     path: '/ingreso',
     name: 'Ingreso',
     component: () => import(/* webpackChunkName: "about" */ '../views/Ingreso.vue')
+  },
+  {
+    path: '/agregar',
+    name: 'Agregar',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Agregar.vue'),
+    meta: {requiresAuth: true}
+
+  },
+  {
+    path: '/editar/:id',
+    name: 'Editar',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Editar.vue'),
+    meta: {requiresAuth: true}    
   }
 ]
 
