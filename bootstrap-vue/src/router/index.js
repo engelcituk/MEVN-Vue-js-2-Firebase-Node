@@ -24,7 +24,13 @@ Vue.use(VueRouter)
     path: '/cards',
     name: 'Cards',
     component: () => import(/* webpackChunkName: "about" */ '../views/Cards.vue')
-  }
+  },
+  {
+    path: '/form',
+    name: 'Form',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Form.vue')
+  },
+
 ]
 
 const router = new VueRouter({
