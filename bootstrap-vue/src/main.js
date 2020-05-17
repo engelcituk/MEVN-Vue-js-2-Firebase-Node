@@ -5,6 +5,8 @@ import store from './store'
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 

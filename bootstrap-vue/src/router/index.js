@@ -30,6 +30,11 @@ Vue.use(VueRouter)
     name: 'Form',
     component: () => import(/* webpackChunkName: "about" */ '../views/Form.vue')
   },
+  {
+    path: '/validaciones',
+    name: 'Validaciones',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Validaciones.vue')
+  }
 
 ]
 
