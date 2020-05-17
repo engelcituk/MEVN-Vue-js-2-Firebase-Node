@@ -9,6 +9,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    carga:false,
     usuario: '',
     error:'',
     tareas: [],
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     setEliminarTarea(state,payload){
       const tareasFiltradas = state.tareas.filter(item => item.id !== payload)
       state.tareas = tareasFiltradas
+    },
+    cargarFirebase(state, payload){
+      state.carga = payload;
     }
   },
   actions: {
@@ -77,6 +81,9 @@ export default new Vuex.Store({
 
     },
     getTareas({commit}){
+      
+      commit('cargarFirebase', true);
+
       const usuario = firebase.auth().currentUser
       const tareas = [];
       db.collection(usuario.email).get()
@@ -86,7 +93,9 @@ export default new Vuex.Store({
           tarea.id = doc.id;
           tareas.push(tarea);
         })
+        commit('cargarFirebase', false);
       }) 
+
       commit('setTareas',tareas)
     },
     getTarea({commit},idTarea){
