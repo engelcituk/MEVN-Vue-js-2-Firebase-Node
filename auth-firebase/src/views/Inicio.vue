@@ -7,7 +7,7 @@
 
     <div v-if="carga" class="text-center mt-3">
       <h3>Cargando contenido..</h3>
-      <pulse-loader :loading="loading"></pulse-loader>
+      <pulse-loader></pulse-loader>
     </div>
     <ul class="list-group mt-5" v-if="!carga">
       <li class="list-group-item"

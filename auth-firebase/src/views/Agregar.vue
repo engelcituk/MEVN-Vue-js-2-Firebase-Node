@@ -1,4 +1,3 @@
-import { mapActions } from 'vuex';
 <template>
     <div>
         <h1>Agregar Tarea</h1>
@@ -7,15 +6,23 @@ import { mapActions } from 'vuex';
                 <div class="input-group-prepend">
                 <div class="input-group-text">T</div>
                 </div>
-                <input type="text" class="form-control" placeholder="Agregar tarea" v-model="nombre">
+                <input type="text" class="form-control" placeholder="Agregar tarea" v-model="$v.nombre.$model">
             </div>
-            <button type="submit" class="btn btn-primary mb-2">Agregar</button>
+            <button type="submit" class="btn btn-primary mb-2"
+            :disabled="$v.$invalid || carga"
+            >Agregar</button>
         </form>
+        <small class="text-danger d-block" v-if="!$v.nombre.required">Campo requerido</small>
+        <small class="text-danger d-block" v-if="!$v.nombre.minLength">Minimo 5 caracteres</small>
+        <!-- {{$v}} -->
+        
     </div>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
+import { required, minLength } from 'vuelidate/lib/validators'
+
 export default {
     name:'Agregar',
     data(){
@@ -25,6 +32,15 @@ export default {
     },
     methods: {
         ...mapActions(['agregarTarea'])
-    }
+    },
+    validations:{
+        nombre: {
+            required,
+            minLength: minLength(5)
+        }
+    },
+    computed:{
+        ...mapState(['carga'])
+    } 
 }
 </script>
