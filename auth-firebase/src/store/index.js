@@ -47,11 +47,16 @@ export default new Vuex.Store({
           .then( () => {
             router.push({name:'Inicio'})
           })
+          .catch( err => {
+            console.log(err.message);
+            commit('setError',err.message)
+    
+          })
 
         })
         .catch(err => {
           console.log(err.message);
-          commit('setError',err.message)
+          commit('setError',err.code)
 
         })
     },
@@ -63,7 +68,7 @@ export default new Vuex.Store({
       })
       .catch( err => {
         console.log(err.message);
-        commit('setError',err.message)
+        commit('setError',err.code)
 
       })
     },

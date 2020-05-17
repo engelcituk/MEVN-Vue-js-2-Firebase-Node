@@ -12,10 +12,14 @@
             <small class="text-danger d-block" v-if="!$v.password.minLength">Minimo 6 caracteres</small>
 
 
-            <button type="submit" class="btn btn-info" :disabled="!$v.invalid"> Ingresar </button>
+            <button type="submit" class="btn btn-info" :disabled="$v.$invalid"> Ingresar </button>
         </form>
-        <p>{{error}}</p>
-        <p>{{$v.email}}</p>
+        <p v-if="error">Usuario o contraseña incorrecta</p> 
+        <p v-if="error === 'auth/user-not-found'">Usuario incorrecto</p>
+        <p v-if="error === 'auth/wrong-password'">Contraseña incorrecto</p>
+
+
+        <!-- <p>{{$v.email}}</p> -->
     </div>
 </template>
 <script>

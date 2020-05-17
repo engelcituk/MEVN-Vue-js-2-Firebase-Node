@@ -14,7 +14,7 @@
             <input class="form-control my-3"
                 type="password"
                 placeholder="contraseña"
-                v-model="password1"
+                v-model="$v.password1.$model"
                 >
             <small class="text-danger d-block" v-if="!$v.password1.minLength">Minimo 6 caracteres</small>            
 
@@ -29,6 +29,8 @@
             <button class="btn btn-info" type="submit" :disabled="!desactivar">Crear usuario</button>
         </form>
         <p>{{error}}</p>
+        <p v-if="error === 'auth/email-already-in-use' ">Email ya registrado</p>
+                            
     </div>
 </template>
 
