@@ -3,10 +3,30 @@
     <div>
         <h1>Registro de usuarios</h1>
         <form @submit.prevent="crearUsuario({email:email, password:password1})">
-            <input type="email" placeholder="email" v-model="email">
-            <input type="password" placeholder="contraseña" v-model="password1">
-            <input type="password" placeholder="confirmar contraseña" v-model="password2">
-            <button type="submit" :disabled="!desactivar">Crear usuario</button>
+            <input class="form-control my-3"
+                 type="email"
+                 placeholder="email"
+                 v-model="$v.email.$model"
+                >
+            <small class="text-danger d-block" v-if="!$v.email.required">Campo requerido</small>            
+            <small class="text-danger d-block" v-if="!$v.email.email">Email no válido</small>
+            
+            <input class="form-control my-3"
+                type="password"
+                placeholder="contraseña"
+                v-model="password1"
+                >
+            <small class="text-danger d-block" v-if="!$v.password1.minLength">Minimo 6 caracteres</small>            
+
+
+            <input class="form-control my-3"
+                type="password"
+                placeholder="confirmar contraseña"
+                v-model="password2"
+            >
+            <small class="text-danger d-block" v-if="!$v.password2.sameAs">Contraseñas no coinciden</small>            
+
+            <button class="btn btn-info" type="submit" :disabled="!desactivar">Crear usuario</button>
         </form>
         <p>{{error}}</p>
     </div>
@@ -14,6 +34,7 @@
 
 <script>
 import {mapActions, mapState} from 'vuex'
+import { required, email, minLength, sameAs} from 'vuelidate/lib/validators';
 
 export default {
     name: 'Registro',
@@ -31,6 +52,13 @@ export default {
         ...mapState(['error']),
         desactivar(){
             return this.password1 === this.password2 && this.password1;
+        }
+    },
+    validations:{
+        email:{email, required},
+        password1: {minLength: minLength(6)},
+        password2:{
+            sameAs: sameAs('password1')
         }
     }
 }
