@@ -9,22 +9,48 @@
             <p class="text-danger" v-if="!$v.email.email">Este email es incorrecto</p>
             <p class="text-danger" v-if="!$v.email.required">Campo requerido</p>
 
-            <p>{{$v.email}}</p>
+            <!-- <p>{{$v.email}}</p> -->
+            <input type="password" placeholder="Ingresa contraseña" class="form-control my-3"
+            v-model="$v.password.$model"
+            :class="{'is-invalid': $v.password.$error}"
+            >
+            <p class="text-danger" v-if="!$v.password.minLength">Mínimo 6 caracteres</p>
+           <!--   <p>{{$v.password}}</p>  -->
+
+
+            <input type="password" placeholder="Repite la contraseña" class="form-control my-3"
+            v-model="$v.repeatPassword.$model"
+            :class="{'is-invalid': $v.repeatPassword.$error}"
+            >
+            <p class="text-danger" v-if="!$v.repeatPassword.sameAsPassword">Contraseñas no coinciden</p>
+            <!-- 
+             <p>{{$v.repeatPassword}}</p>  -->
+
+
         </form>
     </div>
 </template>
 
 <script>
-import { required, email } from 'vuelidate/lib/validators'
+import { required, email, sameAs, minLength} from 'vuelidate/lib/validators'
 export default {
     name: 'Validaciobes',
     data(){
         return {
-            email:''
+            email:'',
+            password: '',
+            repeatPassword: ''
         }
     },
     validations: {
-        email : { required, email }
+        email: { required, email },
+        password: {
+            required,
+            minLength: minLength(6)
+        },
+        repeatPassword: {
+            sameAsPassword: sameAs('password')
+        }
   }
 }
 </script>
