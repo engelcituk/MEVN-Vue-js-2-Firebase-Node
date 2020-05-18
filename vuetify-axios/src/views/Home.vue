@@ -5,11 +5,15 @@
           <v-card>
             <v-date-picker v-model="fecha"
               full-width
+              locale="es-mx"
+              :min="minimo"
+              :max="maximo"
+
             ></v-date-picker>
           </v-card>
           <v-card colo="error" dark>
             <v-card-text class="display-1 text-center">
-              650 - {{fecha}}
+              650 - {{fecha}} 
             </v-card-text>
           </v-card>
         </v-flex>
@@ -24,7 +28,9 @@ export default {
   name: 'Home',
   data() {
     return {
-      fecha:''
+      fecha:'',
+      minimo: '1984',
+      maximo: new Date().toISOString().substr(0,10)
     }
   }
  
