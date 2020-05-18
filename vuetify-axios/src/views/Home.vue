@@ -3,12 +3,13 @@
       <v-layout :wrap="true">
         <v-flex xs12>
           <v-card>
-            <v-date-picker v-model="fecha"
+            <v-date-picker
+              v-model="fecha"
               full-width
               locale="es-mx"
               :min="minimo"
               :max="maximo"
-
+              @change="getDolar(fecha)"
             ></v-date-picker>
           </v-card>
           <v-card colo="error" dark>
@@ -27,21 +28,23 @@ export default {
   name: 'Home',
   data() {
     return {
-      fecha:'',
+      fecha: new Date().toISOString().substr(0,10),
       minimo: '1984',
       maximo: new Date().toISOString().substr(0,10),
       valor: null
     }
   },
   methods: {
-    async getDolar(dia){
-      let datos = await axios.get(`https://mindicador.cl/api/dolar/${dia}`)
-      console.log(datos.data.serie[0].valor)
+    async getDolar(fecha){
+      let arrayFecha = fecha.split(['-'])
+      let ddmmyy = arrayFecha[2]+'-'+arrayFecha[1]+'-'+arrayFecha[0]
+      let datos = await axios.get(`https://mindicador.cl/api/dolar/${ddmmyy}`)
+    
       this.valor = await datos.data.serie[0].valor
     }
   },
   created(){
-    this.getDolar('01-02-2019')
+    this.getDolar(this.fecha)
   }
  
 }
