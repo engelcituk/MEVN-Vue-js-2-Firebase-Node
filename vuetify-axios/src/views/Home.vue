@@ -14,7 +14,7 @@
           </v-card>
           <v-card colo="error" dark>
             <v-card-text class="display-1 text-center">
-              {{valor}} - {{fecha}} 
+              {{valor}} <!-- - {{fecha}} --> 
             </v-card-text>
           </v-card>
         </v-flex>
@@ -38,9 +38,19 @@ export default {
     async getDolar(fecha){
       let arrayFecha = fecha.split(['-'])
       let ddmmyy = arrayFecha[2]+'-'+arrayFecha[1]+'-'+arrayFecha[0]
-      let datos = await axios.get(`https://mindicador.cl/api/dolar/${ddmmyy}`)
-    
-      this.valor = await datos.data.serie[0].valor
+      try {
+        let datos = await axios.get(`https://mindicador.cl/api/dolar/${ddmmyy}`)
+        if(datos.data.serie.length > 0){
+          this.valor = await datos.data.serie[0].valor
+        }else {
+          this.valor = 'Sin resultados'
+        }
+      } catch (error) {
+        //console.log(error)
+      }finally {
+
+      }
+      
     }
   },
   created(){
